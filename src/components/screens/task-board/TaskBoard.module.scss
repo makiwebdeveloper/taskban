@@ -1,0 +1,29 @@
+.taskBoard {
+  @apply flex gap-10;
+}
+
+.statusColumn {
+  @apply flex-1;
+  
+  .header {
+    @apply flex items-center justify-between;
+    
+    h3 {
+       @apply text-dark-gray font-semibold;
+            
+       span {
+         @apply font-normal;
+       }
+    }
+    
+    button {
+      svg {
+        @apply w-6 h-6 text-dark-gray;
+      }
+    } 
+  }
+}
+
+.tasks {
+  @apply bg-light-purple p-3 rounded-xl flex flex-col gap-3 mt-3;
+}

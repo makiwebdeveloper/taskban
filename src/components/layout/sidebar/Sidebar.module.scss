@@ -1,0 +1,7 @@
+.sidebar {
+    @apply w-[250px] p-10 h-screen bg-white p-10 flex flex-col justify-between;
+}
+
+.title {
+    @apply text-center text-3xl font-bold font-k2d uppercase text-purple mb-10;
+}

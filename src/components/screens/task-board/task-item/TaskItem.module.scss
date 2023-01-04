@@ -1,0 +1,23 @@
+.task {
+  @apply bg-white p-3 rounded-lg shadow flex flex-col gap-5 cursor-pointer transition hover:bg-[#f7f7f7] hover:shadow-lg;
+  
+  .title {
+    @apply text-dark-gray text-xl font-semibold;
+  }
+  
+  .subject {
+    @apply text-purple text-sm;
+  }
+  
+  .date {
+    @apply text-pink font-semibold text-sm flex items-center gap-2;
+    
+    svg {
+      @apply w-5 h-5;
+    }
+  }
+  
+  .priority {
+    @apply px-4 py-1 rounded-full text-xs uppercase text-white;
+  }
+}
