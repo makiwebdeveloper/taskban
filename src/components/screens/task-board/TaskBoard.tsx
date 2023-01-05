@@ -1,13 +1,21 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./TaskBoard.module.scss";
-import { ITask } from "../../../interfaces/task.interface";
+import { ITask, StatusType } from "../../../interfaces/task.interface";
 import { BsPlus } from "react-icons/bs";
+import TaskItem from "./task-item/TaskItem";
+import AddTask from "./add-task/AddTask";
+import { Popup } from "../../ui";
 
 import { fakeData, statuses } from "./tasks.data";
-import TaskItem from "./task-item/TaskItem";
 
 const TaskBoard: FC = () => {
   const [tasks, setTasks] = useState<ITask[]>(fakeData);
+  const [isAddTask, setIsAddTask] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState<StatusType | null>(null);
+
+  useEffect(() => {
+    !isAddTask && setSelectedStatus(null);
+  }, [isAddTask]);
 
   return (
     <div className={styles.taskBoard}>
@@ -20,7 +28,12 @@ const TaskBoard: FC = () => {
                 ({tasks.filter((task) => task.status === status.name).length})
               </span>
             </h3>
-            <button>
+            <button
+              onClick={() => {
+                setIsAddTask(true);
+                setSelectedStatus(status.name);
+              }}
+            >
               <BsPlus />
             </button>
           </div>
@@ -35,6 +48,13 @@ const TaskBoard: FC = () => {
           )}
         </div>
       ))}
+
+      {/* ADD TASK POPUP */}
+      {isAddTask && (
+        <Popup setValue={setIsAddTask}>
+          <AddTask selectedStatus={selectedStatus} />
+        </Popup>
+      )}
     </div>
   );
 };

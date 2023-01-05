@@ -1,0 +1,36 @@
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.popupWrapper {
+    width: 700px;
+    height: 550px;
+    background-color: #BFB9FF;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.popup {
+    background-color: #fff;
+    border-radius: 10px;
+    height: 100%;
+    padding: 25px;
+}

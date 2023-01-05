@@ -1,0 +1,11 @@
+.addTask {
+  @apply flex flex-col  relative h-full;
+  
+  .title {
+    @apply text-3xl mb-1 text-purple font-semibold;
+  }
+  
+  .btn {
+    @apply absolute bottom-0 w-full py-2;
+  }
+}

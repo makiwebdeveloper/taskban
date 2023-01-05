@@ -15,7 +15,7 @@ const Sidebar: FC<Props> = ({ sidebarVisible }) => {
         <Menu />
       </div>
       <div className="mx-auto">
-        <Button>Logout</Button>
+        <Button className="px-4 py-1">Logout</Button>
       </div>
     </div>
   );

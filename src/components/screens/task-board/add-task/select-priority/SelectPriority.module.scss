@@ -1,0 +1,7 @@
+.priorities {
+  @apply flex gap-3;
+  
+  button {
+    @apply uppercase py-1 px-4 rounded-full text-xs;
+  }
+}
