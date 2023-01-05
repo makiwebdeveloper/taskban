@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
 import { Button } from "../../ui";
 import Menu from "./menu/Menu";
 import styles from "./Sidebar.module.scss";
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const Sidebar: FC<Props> = ({ sidebarVisible }) => {
+  const { logout } = useAuth();
+
   return (
     <div className={styles.sidebar}>
       <div>
@@ -15,7 +18,9 @@ const Sidebar: FC<Props> = ({ sidebarVisible }) => {
         <Menu />
       </div>
       <div className="mx-auto">
-        <Button className="px-4 py-1">Logout</Button>
+        <Button onClick={logout} className="px-4 py-1">
+          Logout
+        </Button>
       </div>
     </div>
   );

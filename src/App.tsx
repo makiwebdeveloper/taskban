@@ -1,16 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import { Habits, Home, TaskBoard } from "./components/screens";
-import Layout from "./components/layout/Layout";
+import { Habits, Home, Login, TaskBoard } from "./components/screens";
 
 function App() {
   return (
-    <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/task-board" element={<TaskBoard />} />
         <Route path="/habits" element={<Habits />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
-    </Layout>
   );
 }
 

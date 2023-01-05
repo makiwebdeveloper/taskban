@@ -1,4 +1,5 @@
 import { FC, ReactNode, useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 import Header from "./header/Header";
 import styles from "./Layout.module.scss";
 import Sidebar from "./sidebar/Sidebar";
@@ -9,6 +10,9 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   const [sidebarVisible, SetSidebarVisibleVisible] = useState(false);
+  const { currentUser } = useAuth();
+
+  if (!currentUser) return <></>;
 
   return (
     <div className={styles.layout}>

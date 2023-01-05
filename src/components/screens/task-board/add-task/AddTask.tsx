@@ -21,23 +21,40 @@ const AddTask: FC<Props> = ({ selectedStatus }) => {
   return (
     <div className={styles.addTask}>
       <h1 className={styles.title}>New Task</h1>
-      <Input placeholder="Title" />
-      <Input placeholder="Subject" />
-      <Textarea placeholder="Description" />
+      <Input
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        placeholder="Title"
+      />
+      <Input
+        value={formData.subject}
+        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+        placeholder="Subject"
+      />
+      <Textarea
+        value={formData.description}
+        onChange={(e) =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+        placeholder="Description"
+      />
       <div className="flex items-start justify-between">
         <div>
           <p className="text-dark-gray text-sm mb-2">Priority: </p>
           <SelectPriority formData={formData} setFormData={setFormData} />
         </div>
-
         <div>
           <p className="text-dark-gray text-sm mb-2">Date of completion: </p>
-          <DateInput type="date" />
+          <DateInput
+            value={formData.dateOfCompletion}
+            onChange={(e) =>
+              setFormData({ ...formData, dateOfCompletion: e.target.value })
+            }
+            type="date"
+          />
         </div>
       </div>
-      <Button className={styles.btn}>
-        Add Task
-      </Button>
+      <Button className={styles.btn}>Add Task</Button>
     </div>
   );
 };
