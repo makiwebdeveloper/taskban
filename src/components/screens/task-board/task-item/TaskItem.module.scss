@@ -1,5 +1,5 @@
 .task {
-  @apply bg-white p-3 rounded-lg shadow flex flex-col gap-5 cursor-pointer transition hover:bg-[#f7f7f7] hover:shadow-lg;
+  @apply bg-white p-3 rounded-lg shadow flex flex-col gap-5 hover:shadow-lg;
   
   .title {
     @apply text-dark-gray text-xl font-semibold;
@@ -19,5 +19,17 @@
   
   .priority {
     @apply px-4 py-1 rounded-full text-xs uppercase text-white;
+  }
+  
+  .removeBtn {
+    svg {
+      @apply text-dark-gray transition hover:text-red;
+    }
+  }
+  
+  .editBtn {
+    svg {
+      @apply text-dark-gray transition hover:text-purple;
+    }
   }
 }

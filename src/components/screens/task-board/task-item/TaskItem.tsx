@@ -1,20 +1,50 @@
 import { FC } from "react";
 import { ITask } from "../../../../interfaces/task.interface";
 import styles from "./TaskItem.module.scss";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineEdit } from "react-icons/ai";
 import classNames from "classnames";
+import { FiTrash2 } from "react-icons/fi";
+import { useTasks } from "../../../../contexts/TasksContext";
 
 interface Props {
   task: ITask;
   onClick?: () => void;
+  setIsEditTask: (v: boolean) => void;
+  setSelectedTask: (v: ITask) => void;
 }
 
-const TaskItem: FC<Props> = ({ task, onClick }) => {
+const TaskItem: FC<Props> = ({
+  task,
+  onClick,
+  setIsEditTask,
+  setSelectedTask,
+}) => {
+  const { removeTask } = useTasks();
+
   return (
     <div onClick={onClick} className={styles.task}>
-      <div>
-        <p className={styles.title}>{task.title}</p>
-        <p className={styles.subject}>{task.subject}</p>
+      <div className="flex justify-between items-start">
+        <div>
+          <p className={styles.title}>{task.title}</p>
+          <p className={styles.subject}>{task.subject}</p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              setIsEditTask(true);
+              setSelectedTask(task);
+            }}
+            className={styles.editBtn}
+          >
+            <AiOutlineEdit />
+          </button>
+          <button
+            onClick={() => removeTask(task.id)}
+            className={styles.removeBtn}
+          >
+            <FiTrash2 />
+          </button>
+        </div>
       </div>
       <div className="flex items-center justify-between">
         <p className={styles.date}>

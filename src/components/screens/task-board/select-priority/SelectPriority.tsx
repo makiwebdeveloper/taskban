@@ -1,19 +1,19 @@
 import { FC } from "react";
 import classNames from "classnames";
 import styles from "./SelectPriority.module.scss";
-import { AddTaskDataType } from "../add-task.type";
-import { PriorityType } from "../../../../../interfaces/task.interface";
+import { PriorityType } from "./../../../../interfaces/task.interface";
 
 interface Props {
-  formData: AddTaskDataType;
-  setFormData: (value: AddTaskDataType) => void;
+  value?: PriorityType;
+  setValue: (value: PriorityType) => void;
+  className?: string;
 }
 
 export const priorities: PriorityType[] = ["high", "medium", "low"];
 
-const SelectPriority: FC<Props> = ({ formData, setFormData }) => {
+const SelectPriority: FC<Props> = ({ value, setValue, className }) => {
   return (
-    <div className={styles.priorities}>
+    <div className={`${styles.priorities} ${className}`}>
       {priorities.map((priority) => {
         const colors = classNames(
           { pink: priority === "high" },
@@ -24,9 +24,9 @@ const SelectPriority: FC<Props> = ({ formData, setFormData }) => {
         return (
           <button
             key={priority}
-            onClick={() => setFormData({ ...formData, priority })}
+            onClick={() => setValue(priority)}
             className={
-              priority === formData.priority
+              priority === value
                 ? `bg-${colors} text-white`
                 : `border border-dark-gray text-dark-gray`
             }

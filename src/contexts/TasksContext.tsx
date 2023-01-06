@@ -1,4 +1,12 @@
-import { collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import {
   createContext,
   ReactNode,
@@ -6,17 +14,15 @@ import {
   useEffect,
   useState,
 } from "react";
-import { AddTaskDataType } from "../components/screens/task-board/add-task/add-task.type";
+import { AddTaskDataType } from "../components/screens/task-board/add-task/add-task-data.type";
 import { db } from "../configs/firebase.config";
 import { ITask, StatusType } from "../interfaces/task.interface";
 import { v4 } from "uuid";
+import { EditTaskDataType } from "../components/screens/task-board/edit-task/edit-task-data.type";
 
 interface ITasksContext {
   addTask: (AddTaskData: AddTaskDataType, selectedStatus: StatusType) => void;
-  updateTask: (
-    AddTaskData: AddTaskDataType,
-    selectedStatus: StatusType
-  ) => void;
+  editTask: (formData: EditTaskDataType, selectedTaskId: string) => void;
   removeTask: (id: string) => void;
   tasks: ITask[];
 }
@@ -41,9 +47,18 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     await setDoc(doc(db, "tasks", `${randomId}`), newTask);
   };
 
-  const updateTask = () => {};
+  const editTask = async (
+    formData: EditTaskDataType,
+    selectedTaskId: string
+  ) => {
+    await updateDoc(doc(db, "tasks", `${selectedTaskId}`), {
+      ...formData,
+    });
+  };
 
-  const removeTask = () => {};
+  const removeTask = async (id: string) => {
+    await deleteDoc(doc(db, "tasks", id));
+  };
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "tasks"), (querySnapshot) => {
@@ -57,7 +72,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     return () => unsub();
   }, []);
 
-  const value: ITasksContext = { addTask, tasks, updateTask, removeTask };
+  const value: ITasksContext = { addTask, tasks, removeTask, editTask };
 
   return (
     <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
