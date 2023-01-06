@@ -1,13 +1,15 @@
 import { FC } from "react";
 import classNames from "classnames";
 import styles from "./SelectPriority.module.scss";
-import { priorities } from "../add-task.data";
-import { FormDataType } from "../form-data.type";
+import { AddTaskDataType } from "../add-task.type";
+import { PriorityType } from "../../../../../interfaces/task.interface";
 
 interface Props {
-  formData: FormDataType;
-  setFormData: (value: FormDataType) => void;
+  formData: AddTaskDataType;
+  setFormData: (value: AddTaskDataType) => void;
 }
+
+export const priorities: PriorityType[] = ["high", "medium", "low"];
 
 const SelectPriority: FC<Props> = ({ formData, setFormData }) => {
   return (

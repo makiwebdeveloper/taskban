@@ -6,11 +6,12 @@ import classNames from "classnames";
 
 interface Props {
   task: ITask;
+  onClick?: () => void;
 }
 
-const TaskItem: FC<Props> = ({ task }) => {
+const TaskItem: FC<Props> = ({ task, onClick }) => {
   return (
-    <div className={styles.task}>
+    <div onClick={onClick} className={styles.task}>
       <div>
         <p className={styles.title}>{task.title}</p>
         <p className={styles.subject}>{task.subject}</p>

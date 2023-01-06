@@ -1,18 +1,28 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./TaskBoard.module.scss";
-import { ITask, StatusType } from "../../../interfaces/task.interface";
+import { StatusType } from "../../../interfaces/task.interface";
 import { BsPlus } from "react-icons/bs";
 import TaskItem from "./task-item/TaskItem";
-import AddTask from "./add-task/AddTask";
-import { Popup } from "../../ui";
 
-import { fakeData, statuses } from "./tasks.data";
+import { Popup } from "../../ui";
+import { statuses } from "./tasks.data";
 import Layout from "../../layout/Layout";
+import { useTasks } from "../../../contexts/TasksContext";
+import AddTask from "./add-task/AddTask";
+import { AddTaskDataType } from "./add-task/add-task.type";
 
 const TaskBoard: FC = () => {
-  const [tasks, setTasks] = useState<ITask[]>(fakeData);
+  const { tasks, addTask } = useTasks();
   const [isAddTask, setIsAddTask] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<StatusType | null>(null);
+
+  const addTaskHandler = (formData: AddTaskDataType) => {
+    if (selectedStatus) {
+      console.log(formData);
+      addTask(formData, selectedStatus);
+      setIsAddTask(false);
+    }
+  };
 
   useEffect(() => {
     !isAddTask && setSelectedStatus(null);
@@ -55,7 +65,7 @@ const TaskBoard: FC = () => {
         {/* ADD TASK POPUP */}
         {isAddTask && (
           <Popup setValue={setIsAddTask}>
-            <AddTask selectedStatus={selectedStatus} />
+            <AddTask addTaskHandler={addTaskHandler} />
           </Popup>
         )}
       </div>
