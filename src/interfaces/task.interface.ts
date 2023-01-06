@@ -10,4 +10,5 @@ export interface ITask {
   dateOfCompletion?: string;
   status: StatusType;
   priority: PriorityType;
+  createdBy: string;
 }

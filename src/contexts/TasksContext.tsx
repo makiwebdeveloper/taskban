@@ -3,8 +3,10 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import {
   createContext,
@@ -18,6 +20,7 @@ import { db } from "../configs/firebase.config";
 import { ITask, StatusType } from "../interfaces/task.interface";
 import { v4 } from "uuid";
 import { EditTaskDataType } from "../components/screens/task-board/edit-task/edit-task-data.type";
+import { useAuth } from "./AuthContext";
 
 interface ITasksContext {
   addTask: (AddTaskData: AddTaskDataType, selectedStatus: StatusType) => void;
@@ -31,6 +34,7 @@ const TasksContext = createContext<ITasksContext | null>(null);
 export const useTasks = () => useContext(TasksContext) as ITasksContext;
 
 export const TasksProvider = ({ children }: { children: ReactNode }) => {
+  const { currentUser } = useAuth();
   const [tasks, setTasks] = useState<ITask[]>([]);
 
   const addTask = async (
@@ -43,6 +47,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
       id: randomId,
       ...AddTaskData,
       status: selectedStatus,
+      createdBy: currentUser ? currentUser.uid : "",
     };
     await setDoc(doc(db, "tasks", `${randomId}`), newTask);
   };
@@ -65,7 +70,12 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "tasks"), (querySnapshot) => {
+    const q = query(
+      collection(db, "tasks"),
+      where("createdBy", "==", `${currentUser?.uid}`)
+    );
+
+    const unsub = onSnapshot(q, (querySnapshot) => {
       const fetchedTasks: ITask[] = [];
       querySnapshot.forEach((doc) => {
         fetchedTasks.push(doc.data() as ITask);
@@ -74,7 +84,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => unsub();
-  }, []);
+  }, [currentUser]);
 
   const value: ITasksContext = {
     addTask,
