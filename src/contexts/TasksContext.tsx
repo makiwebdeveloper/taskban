@@ -3,7 +3,6 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
-  query,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -25,6 +24,7 @@ interface ITasksContext {
   editTask: (formData: EditTaskDataType, selectedTaskId: string) => void;
   removeTask: (id: string) => void;
   tasks: ITask[];
+  sortByMonth: (sortDate: string) => ITask[];
 }
 
 const TasksContext = createContext<ITasksContext | null>(null);
@@ -60,6 +60,10 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     await deleteDoc(doc(db, "tasks", id));
   };
 
+  const sortByMonth = (date: string) => {
+    return tasks.filter((task) => task.dateOfCompletion?.slice(0, 7) === date);
+  };
+
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "tasks"), (querySnapshot) => {
       const fetchedTasks: ITask[] = [];
@@ -72,7 +76,13 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
     return () => unsub();
   }, []);
 
-  const value: ITasksContext = { addTask, tasks, removeTask, editTask };
+  const value: ITasksContext = {
+    addTask,
+    tasks,
+    removeTask,
+    editTask,
+    sortByMonth,
+  };
 
   return (
     <TasksContext.Provider value={value}>{children}</TasksContext.Provider>

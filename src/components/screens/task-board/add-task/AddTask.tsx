@@ -56,6 +56,7 @@ const AddTask: FC<Props> = ({ addTaskHandler }) => {
         <div>
           <p className="text-dark-gray text-sm mb-2">Date of completion: </p>
           <DateInput
+            type="date"
             value={addTaskData.dateOfCompletion}
             onChange={(e) =>
               setAddTaskData({

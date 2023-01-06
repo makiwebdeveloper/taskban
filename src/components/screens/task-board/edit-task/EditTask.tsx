@@ -63,12 +63,9 @@ const EditTask: FC<Props> = ({ selectedTask, editTaskHandler }) => {
           />
         </div>
         <div>
-          <p className="text-dark-gray text-sm mb-2">
-            Date of completion:{" "}
-            {selectedTask?.dateOfCompletion &&
-              `(now: ${selectedTask?.dateOfCompletion})`}
-          </p>
+          <p className="text-dark-gray text-sm mb-2">Date of completion:</p>
           <DateInput
+            type="date"
             value={editTaskData.dateOfCompletion}
             onChange={(e) =>
               setEditTaskData({

@@ -11,13 +11,15 @@ import { useTasks } from "../../../contexts/TasksContext";
 import { statuses } from "./tasks.data";
 import { AddTaskDataType } from "./add-task/add-task-data.type";
 import { EditTaskDataType } from "./edit-task/edit-task-data.type";
+import SortTasks from "./sort-tasks/SortTasks";
 
 const TaskBoard: FC = () => {
-  const { tasks, addTask, editTask } = useTasks();
+  const { tasks, addTask, editTask, sortByMonth } = useTasks();
   const [isAddTask, setIsAddTask] = useState(false);
   const [isEditTask, setIsEditTask] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<StatusType | null>(null);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+  const [sortDate, setSortDate] = useState("");
 
   const addTaskHandler = (formData: AddTaskDataType) => {
     if (selectedStatus) {
@@ -43,6 +45,7 @@ const TaskBoard: FC = () => {
 
   return (
     <Layout>
+      <SortTasks sortDate={sortDate} setSortDate={setSortDate} />
       <div className={styles.taskBoard}>
         {statuses.map((status) => (
           <div key={status.name} className={styles.statusColumn}>
@@ -62,10 +65,11 @@ const TaskBoard: FC = () => {
                 <BsPlus />
               </button>
             </div>
-            {tasks.filter((task) => task.status === status.name).length !==
-              0 && (
+            {(sortDate.length === 0 ? tasks : sortByMonth(sortDate)).filter(
+              (task) => task.status === status.name
+            ).length !== 0 && (
               <div className={styles.tasks}>
-                {tasks
+                {(sortDate.length === 0 ? tasks : sortByMonth(sortDate))
                   .filter((task) => task.status === status.name)
                   .map((task) => (
                     <TaskItem
