@@ -4,11 +4,9 @@ import { Button } from "../../ui";
 import Menu from "./menu/Menu";
 import styles from "./Sidebar.module.scss";
 
-interface Props {
-  sidebarVisible: boolean;
-}
+interface Props {}
 
-const Sidebar: FC<Props> = ({ sidebarVisible }) => {
+const Sidebar: FC<Props> = () => {
   const { logout } = useAuth();
 
   return (

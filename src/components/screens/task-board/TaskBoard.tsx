@@ -9,31 +9,18 @@ import { Popup } from "../../ui";
 import { ITask, StatusType } from "../../../interfaces/task.interface";
 import { useTasks } from "../../../contexts/TasksContext";
 import { statuses } from "./tasks.data";
-import { AddTaskDataType } from "./add-task/add-task-data.type";
 import { EditTaskDataType } from "./edit-task/edit-task-data.type";
 import SortTasks from "./sort-tasks/SortTasks";
 
 const TaskBoard: FC = () => {
-  const { tasks, addTask, editTask, sortByMonth } = useTasks();
+  const { tasks, sortByMonth } = useTasks();
   const [isAddTask, setIsAddTask] = useState(false);
   const [isEditTask, setIsEditTask] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<StatusType | null>(null);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const [sortDate, setSortDate] = useState("");
 
-  const addTaskHandler = (formData: AddTaskDataType) => {
-    if (selectedStatus) {
-      addTask(formData, selectedStatus);
-      setIsAddTask(false);
-    }
-  };
-
-  const editTaskHandler = (formData: EditTaskDataType) => {
-    if (selectedTask) {
-      editTask(formData, selectedTask.id);
-      setIsEditTask(false);
-    }
-  };
+ 
 
   useEffect(() => {
     !isAddTask && setSelectedStatus(null);
@@ -86,18 +73,17 @@ const TaskBoard: FC = () => {
 
         {/* ADD TASK POPUP */}
         {isAddTask && (
-          <Popup setValue={setIsAddTask} className="w-[550px]">
-            <AddTask addTaskHandler={addTaskHandler} />
-          </Popup>
+          <AddTask
+            setIsAddTask={setIsAddTask}
+            selectedStatus={selectedStatus}
+          />
         )}
         {/* EDIT TASK POPUP */}
         {isEditTask && (
-          <Popup setValue={setIsEditTask} className="w-[550px]">
             <EditTask
-              editTaskHandler={editTaskHandler}
+            setIsEditTask={setIsEditTask}
               selectedTask={selectedTask}
             />
-          </Popup>
         )}
       </div>
     </Layout>

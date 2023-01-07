@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import Header from "./header/Header";
 import styles from "./Layout.module.scss";
@@ -9,15 +9,14 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const [sidebarVisible, SetSidebarVisibleVisible] = useState(false);
   const { currentUser } = useAuth();
 
   if (!currentUser) return <></>;
 
   return (
     <div className={styles.layout}>
-      <Sidebar sidebarVisible={sidebarVisible} />
-      <div>
+      <Sidebar />
+      <div className="w-full">
         <Header />
         <div className={styles.content}>{children}</div>
       </div>
