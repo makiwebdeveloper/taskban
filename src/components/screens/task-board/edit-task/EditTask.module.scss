@@ -1,0 +1,27 @@
+.editTask {
+  @apply flex flex-col gap-3 relative h-full;
+
+  .title {
+    @apply text-3xl mb-1 text-purple font-semibold;
+  }
+  
+  .taskTitle {
+    @apply text-lg text-purple font-semibold border-b-2 border-purple;
+  }
+
+  .btn {
+    @apply py-2 mt-4;
+  }
+  
+  .statuses {
+    @apply flex gap-2;
+    
+    .statusItem {
+      @apply border-2 font-semibold rounded-full border-dark-gray text-dark-gray flex-1 p-1 text-center transition hover:text-purple hover:border-purple cursor-pointer;
+    }
+    
+    .activeStatusItem {
+      @apply border-2 font-semibold rounded-full border-light-purple bg-purple text-white flex-1 p-1 text-center cursor-pointer;
+    }
+  }
+}

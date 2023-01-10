@@ -1,0 +1,15 @@
+.title {
+  @apply text-3xl mb-1 text-purple font-semibold mb-5;
+}
+
+.info {
+  @apply flex flex-col gap-3;
+  
+  p {
+    @apply text-black text-lg;
+    
+    span {
+      @apply text-dark-gray font-semibold border-b-2;
+    }
+  }
+}

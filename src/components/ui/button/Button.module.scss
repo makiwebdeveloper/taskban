@@ -1,0 +1,7 @@
+.blueBtn {
+  @apply rounded-full border-2 border-purple font-semibold text-purple transition hover:bg-purple hover:text-white;
+}
+
+.redBtn {
+  @apply rounded-full border-2 border-red font-semibold text-red transition hover:bg-red hover:text-white;
+}

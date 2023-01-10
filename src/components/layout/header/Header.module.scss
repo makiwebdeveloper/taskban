@@ -1,0 +1,11 @@
+.header {
+  @apply fixed bg-purple z-10 w-[100vw] h-16 text-white flex items-center justify-end px-10;
+}
+
+.userIcon {
+  @apply w-6 h-6;
+}
+
+.userPhoto {
+  @apply w-8 h-8 rounded-full;
+}

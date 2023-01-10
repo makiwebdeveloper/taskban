@@ -1,0 +1,19 @@
+.wrapper {
+  @apply bg-gradient-to-r from-purple to-[#4332F6] px-[50px]  rounded-2xl text-white flex justify-between items-center;
+  
+  .title {
+    @apply text-xl mb-1;
+    
+    span {
+      @apply font-semibold;
+    }
+  }
+  
+  .text {
+    @apply text-sm;
+  }
+  
+  .img {
+    @apply w-[100px] h-[100px];
+  }
+}
