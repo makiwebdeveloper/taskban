@@ -6,3 +6,6 @@ You can also log in to the application using your Google account and in this way
 
 ## Stack
 ReactJs, TypeScript, Tailwind, React Context, Firebase
+
+## Link
+[You can try this app here](https://chic-tapioca-32893e.netlify.app)
