@@ -48,6 +48,10 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
       ...AddTaskData,
       status: selectedStatus,
       createdBy: currentUser ? currentUser.uid : "",
+      finishedAt:
+        selectedStatus === "completed"
+          ? new Date().toJSON().slice(0, 10).replace(/-/g, "-")
+          : "",
     };
     await setDoc(doc(db, "tasks", `${randomId}`), newTask);
   };
@@ -58,6 +62,10 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
   ) => {
     await updateDoc(doc(db, "tasks", `${selectedTaskId}`), {
       ...formData,
+      finishedAt:
+        formData.status === "completed"
+          ? new Date().toJSON().slice(0, 10).replace(/-/g, "-")
+          : "",
     });
   };
 

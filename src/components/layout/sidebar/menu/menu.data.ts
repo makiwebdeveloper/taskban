@@ -20,9 +20,4 @@ export const menuData: IMenuItem[] = [
     link: "/task-board",
     icon: MdDashboard,
   },
-  {
-    name: "Habits",
-    link: "/habits",
-    icon: BsCardList,
-  },
 ];

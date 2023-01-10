@@ -6,6 +6,7 @@
     width: 100%;
     height: 100vh;
     backdrop-filter: blur(4px);
+    z-index: 50;
 }
 
 .container {
@@ -17,6 +18,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 50;
+    
 }
 
 
@@ -24,6 +27,8 @@
     background-color: #BFB9FF;
     padding: 10px;
     border-radius: 15px;
+    z-index: 50;
+    
 }
 
 .popup {
@@ -31,4 +36,6 @@
     border-radius: 10px;
     height: 100%;
     padding: 25px;
+    z-index: 50;
+    
 }

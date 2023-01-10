@@ -8,6 +8,7 @@ export interface ITask {
   subject?: string;
   description?: string;
   dateOfCompletion?: string;
+  finishedAt: string;
   status: StatusType;
   priority: PriorityType;
   createdBy: string;

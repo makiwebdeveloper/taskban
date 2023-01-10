@@ -10,7 +10,7 @@
   }
   
   .date {
-    @apply text-pink font-semibold text-sm flex items-center gap-2;
+    @apply text-pink font-semibold text-sm;
     
     svg {
       @apply w-5 h-5;

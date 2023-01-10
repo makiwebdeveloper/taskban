@@ -5,11 +5,9 @@ import TaskItem from "./task-item/TaskItem";
 import Layout from "../../layout/Layout";
 import AddTask from "./add-task/AddTask";
 import EditTask from "./edit-task/EditTask";
-import { Popup } from "../../ui";
 import { ITask, StatusType } from "../../../interfaces/task.interface";
 import { useTasks } from "../../../contexts/TasksContext";
 import { statuses } from "./tasks.data";
-import { EditTaskDataType } from "./edit-task/edit-task-data.type";
 import SortTasks from "./sort-tasks/SortTasks";
 
 const TaskBoard: FC = () => {
@@ -19,8 +17,6 @@ const TaskBoard: FC = () => {
   const [selectedStatus, setSelectedStatus] = useState<StatusType | null>(null);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const [sortDate, setSortDate] = useState("");
-
- 
 
   useEffect(() => {
     !isAddTask && setSelectedStatus(null);
@@ -80,10 +76,7 @@ const TaskBoard: FC = () => {
         )}
         {/* EDIT TASK POPUP */}
         {isEditTask && (
-            <EditTask
-            setIsEditTask={setIsEditTask}
-              selectedTask={selectedTask}
-            />
+          <EditTask setIsEditTask={setIsEditTask} selectedTask={selectedTask} />
         )}
       </div>
     </Layout>

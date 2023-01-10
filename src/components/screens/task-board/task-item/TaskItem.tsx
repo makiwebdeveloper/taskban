@@ -47,10 +47,17 @@ const TaskItem: FC<Props> = ({
         </div>
       </div>
       <div className="flex items-center justify-between">
-        <p className={styles.date}>
-          {task.dateOfCompletion && <AiOutlineClockCircle />}{" "}
-          {task.dateOfCompletion}
-        </p>
+        {task.finishedAt ? (
+          <p className={styles.date + " flex flex-col"}>
+            Finished at:
+            <span>{task.finishedAt}</span>
+          </p>
+        ) : (
+          <p className={styles.date + ' flex gap-2 items-center'}>
+            {task.dateOfCompletion && <AiOutlineClockCircle />}
+            {task.dateOfCompletion}
+          </p>
+        )}
         <p
           className={`${styles.priority} ${classNames({
             "bg-pink": task.priority === "high",
