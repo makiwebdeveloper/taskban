@@ -6,6 +6,7 @@ import { Button, DateInput, Popup } from "../../../ui";
 import SelectPriority from "../select-priority/SelectPriority";
 import { statuses } from "../tasks.data";
 import { useTasks } from "../../../../contexts/TasksContext";
+import { FiTrash2 } from "react-icons/fi";
 
 interface Props {
   selectedTask: ITask | null;
@@ -13,16 +14,23 @@ interface Props {
 }
 
 const EditTask: FC<Props> = ({ selectedTask, setIsEditTask }) => {
-  const { editTask } = useTasks();
+  const { editTask, removeTask } = useTasks();
   const [editTaskData, setEditTaskData] = useState<EditTaskDataType>({
     dateOfCompletion: selectedTask?.dateOfCompletion,
     status: selectedTask?.status,
     priority: selectedTask?.priority,
   });
 
-  const editTaskHandler = (formData: EditTaskDataType) => {
+  const editTaskHandler = () => {
     if (selectedTask) {
-      editTask(formData, selectedTask.id);
+      editTask(editTaskData, selectedTask.id);
+      setIsEditTask(false);
+    }
+  };
+
+  const removeTaskHandler = () => {
+    if (selectedTask) {
+      removeTask(selectedTask.id);
       setIsEditTask(false);
     }
   };
@@ -86,10 +94,15 @@ const EditTask: FC<Props> = ({ selectedTask, setIsEditTask }) => {
             />
           </div>
         </div>
-        <Button onClick={() => editTaskHandler(editTaskData)} className="p-2">
-          Edit Task
-        </Button>
-      </div>{" "}
+        <div className="flex gap-3">
+          <Button onClick={editTaskHandler} className="p-2 w-full">
+            Edit Task
+          </Button>
+          <Button onClick={removeTaskHandler} red className="px-3">
+            <FiTrash2 />
+          </Button>
+        </div>
+      </div>
     </Popup>
   );
 };

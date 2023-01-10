@@ -2,15 +2,15 @@ import { FC } from "react";
 import { ITask } from "../../../../interfaces/task.interface";
 import styles from "./TaskItem.module.scss";
 import { AiOutlineClockCircle, AiOutlineEdit } from "react-icons/ai";
+import { CgMore } from "react-icons/cg";
 import classNames from "classnames";
-import { FiTrash2 } from "react-icons/fi";
-import { useTasks } from "../../../../contexts/TasksContext";
 
 interface Props {
   task: ITask;
   onClick?: () => void;
   setIsEditTask: (v: boolean) => void;
   setSelectedTask: (v: ITask) => void;
+  setIsTaskInfo: (v: boolean) => void;
 }
 
 const TaskItem: FC<Props> = ({
@@ -18,9 +18,8 @@ const TaskItem: FC<Props> = ({
   onClick,
   setIsEditTask,
   setSelectedTask,
+  setIsTaskInfo,
 }) => {
-  const { removeTask } = useTasks();
-
   return (
     <div onClick={onClick} className={styles.task}>
       <div className="flex justify-between items-start">
@@ -39,25 +38,21 @@ const TaskItem: FC<Props> = ({
             <AiOutlineEdit />
           </button>
           <button
-            onClick={() => removeTask(task.id)}
-            className={styles.removeBtn}
+            className={styles.infoBtn}
+            onClick={() => {
+              setIsTaskInfo(true);
+              setSelectedTask(task);
+            }}
           >
-            <FiTrash2 />
+            <CgMore />
           </button>
         </div>
       </div>
       <div className="flex items-center justify-between">
-        {task.finishedAt ? (
-          <p className={styles.date + " flex flex-col"}>
-            Finished at:
-            <span>{task.finishedAt}</span>
-          </p>
-        ) : (
-          <p className={styles.date + ' flex gap-2 items-center'}>
-            {task.dateOfCompletion && <AiOutlineClockCircle />}
-            {task.dateOfCompletion}
-          </p>
-        )}
+        <p className={styles.date + " flex gap-2 items-center"}>
+          {task.dateOfCompletion && <AiOutlineClockCircle />}
+          {task.dateOfCompletion}
+        </p>
         <p
           className={`${styles.priority} ${classNames({
             "bg-pink": task.priority === "high",

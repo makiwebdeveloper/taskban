@@ -32,4 +32,10 @@
       @apply text-dark-gray transition hover:text-purple;
     }
   }
+  
+  .infoBtn {
+    svg {
+      @apply text-dark-gray transition hover:text-orange;
+    }
+  }
 }
